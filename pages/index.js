@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import fs from 'fs'
 import path from 'path'
 
 function HomePage(props) {
@@ -15,7 +15,7 @@ function HomePage(props) {
 
 export async function getStaticProps() {
     const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json')
-    const jsonData = await fs.readFileSync(filePath)
+    const jsonData = fs.readFileSync(filePath)
     const data = JSON.parse(jsonData)
 
     return {
