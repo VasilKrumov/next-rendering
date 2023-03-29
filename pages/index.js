@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import Link from 'next/link'
 
 function HomePage(props) {
     const { products } = props
@@ -7,7 +8,9 @@ function HomePage(props) {
     return (
         <ul>
             {products?.map((product) => (
-                <li key={product.id}>{product.title}</li>
+                <li key={product.id}>
+                    <Link href={`/${product.id}`}>{product.title}</Link>
+                </li>
             ))}
         </ul>
     )
@@ -22,6 +25,13 @@ export async function getStaticProps() {
         props: {
             products: data.products,
         },
+        revalidate: 10,
+        // set the page to 404 in case of error
+        // notFound: true,
+        // redirect to another route in case of error
+        // redirect: {
+        //     destination: '/',
+        // },
     }
 }
 
